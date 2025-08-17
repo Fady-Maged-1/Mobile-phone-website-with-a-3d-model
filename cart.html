@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>your cart !</title>
+    <link rel="icon" type="image/png" href="D:\Web Progect\icons8-cart-50.png">
+    <style>
+        body {
+            background-image: url('imeges/back3.webp');
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .cart-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #cart-items {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .cart-item .product-name {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .cart-item .product-price {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        .product-button {
+            background-color: #ff4747;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .product-button:hover {
+            background-color: #e03e3e;
+        }
+
+        .checkout-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 50%;
+            margin-left:25%;
+        }
+
+        .checkout-button:hover {
+            background-color: #45a049;
+        }
+
+        .cart-summary {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cart-summary p {
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .empty-cart-message {
+            color: red;
+            font-size: 1.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="cart-container">
+        <h1 id="title">Cart Page </h1>
+
+        <div id="cart-items">
+        </div>
+
+        <div class="cart-summary">
+            <h2 id="total-price">Total Price =</h2>
+        </div>
+
+        <button class="checkout-button" onclick="checkout()">Done !</button>
+        <br><br>
+    </div>
+
+    <script>
+        
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let cartItemsDiv = document.getElementById('cart-items');
+            cartItemsDiv.innerHTML = '';
+            let total = 0; 
+            cart.forEach((item, index) => {
+                let cartItemDiv = document.createElement('div');
+                cartItemDiv.classList.add('cart-item');
+                cartItemDiv.innerHTML = `
+                    <div class="product-name">${item.name}</div>
+                    <div class="product-price">${item.price} $</div>
+                    <button class="product-button" onclick="removeFromCart(${index})">delete</button>
+                `;
+                cartItemsDiv.appendChild(cartItemDiv);
+                total += item.price; 
+            });
+            document.getElementById('total-price').textContent =` Total Price = ${total} $`;
+            if (total == 0) {
+                document.getElementById('total-price').style.display = 'none';
+                document.getElementById('title').innerText = "The cart is Empety";
+                document.getElementById('title').style.color = 'red';
+            } 
+        }
+
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1); 
+            localStorage.setItem('cart', JSON.stringify(cart)); 
+            loadCart(); 
+        }
+
+        function checkout() {
+            if(total == 0){
+                alert('Your Cart is Empety');
+          
+        }else{
+            alert('Let us see you again');
+        }
+            localStorage.removeItem('cart'); 
+            loadCart();
+       
+    }
+        loadCart();
+    </script>
+
+</body>
+</html>
