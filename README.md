@@ -49,6 +49,3 @@ The purpose of the project is not only to demonstrate technical skills in **web 
 ✅ With these steps, the project should run smoothly on your local machine. The demo video can showcase navigation, database-driven pages, and the 3D model interaction.
 
 
-
-تحب أزود كمان **Usage Example (Demo Walkthrough)** في الآخر يوضح المستخدم يقدر يعمل إيه خطوة بخطوة؟
-
